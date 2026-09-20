@@ -2,32 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-cream text-charcoal font-sans antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+::selection {
+  background: #c9a252;
+  color: #fff;
+}
+
+@layer components {
+  .container-premium {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-black hover:shadow-premium focus:outline-none focus-visible:ring-2 focus-visible:ring-bronze-400 focus-visible:ring-offset-2;
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-bronze-400 px-7 py-3.5 text-sm font-semibold text-charcoal transition-all hover:bg-bronze-500 hover:text-white hover:shadow-premium focus:outline-none focus-visible:ring-2 focus-visible:ring-bronze-500 focus-visible:ring-offset-2;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/20 bg-white/80 px-7 py-3.5 text-sm font-semibold text-charcoal backdrop-blur transition-all hover:border-charcoal hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-charcoal focus-visible:ring-offset-2;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-bronze-600;
+  }
+  .card-premium {
+    @apply overflow-hidden rounded-2xl border border-stone-200/70 bg-white shadow-card;
+  }
+}
+
+/* Lightweight reveal animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal {
+  animation: fadeUp 0.7s ease both;
+}
+.reveal-delay-1 {
+  animation-delay: 0.1s;
+}
+.reveal-delay-2 {
+  animation-delay: 0.2s;
+}
+.reveal-delay-3 {
+  animation-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
