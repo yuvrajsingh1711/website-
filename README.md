@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Baba Hariharnath Tiles & Marble House — Website
+Premium, responsive business website built with **Next.js 14, React, TypeScript, Tailwind CSS** and **lucide-react**.
 
-## Getting Started
+## How to run locally
 
-First, run the development server:
+Node v20 is required. This Mac had no Node, so it was installed to `~/.node` — if `node` is not found, run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+export PATH="$HOME/.node/bin:$PATH"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd baba-hariharnath-tiles
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Open http://localhost:3000
 
-## Learn More
+Production check:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `/` — Home (hero, why us, categories, featured, marble showcase, benefits, designs, testimonials, FAQ, CTA, contact/map)
+- `/products` — Search + category filter grid
+- `/products/[slug]` — Details with gallery, sizes/finish/application, WhatsApp + call, related products, enquiry form
+- `/about` — Quality / Variety / Service / Guidance
+- `/gallery` — Masonry grid + lightbox with tag filter
+- `/contact` — Contact cards, form, map embed
+- `/quote` — Quote request form with validation + WhatsApp handover
 
-## Deploy on Vercel
+## Exactly which files to edit for real business details
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All placeholders are marked with `TODO: REPLACE` comments.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| What | File |
+|---|---|
+| Phone, WhatsApp, email, address, hours, Google Maps embed + directions, logo, social links | `src/config/business.ts` |
+| WhatsApp number logic | `src/lib/whatsapp.ts` (reads from business.ts) |
+| Products (add/edit: name, category, image, sizes, finish, application) | `src/data/products.ts` — save photos in `public/products/` e.g. `/products/carrara.jpg` |
+| Testimonials, FAQs, gallery images | `src/data/site.ts` |
+| Logo: currently text-based. Add `public/logo.png` and update `logoImage` in `business.ts` + `src/components/Navbar.tsx` | `src/components/Navbar.tsx` |
+| Domain for sitemap/robots | `src/app/sitemap.ts`, `src/app/robots.ts` |
+| Colours/fonts | `tailwind.config.ts`, `src/app/globals.css` |
+| SEO titles/descriptions | each `page.tsx` `metadata` + `src/app/layout.tsx` |
+
+### WhatsApp
+
+Placeholder: `919999999999` in `src/config/business.ts` (`whatsappNumber`).
+Pre-filled message format: `Hello Baba Hariharnath Tiles & Marble House, I am interested in [PRODUCT NAME]. Please share price and availability.`
+
+### Google Maps
+
+1. Google Maps → search shop → Share → Embed a map → copy iframe `src`
+2. Paste into `mapsEmbedUrl` in `src/config/business.ts`
+3. Set `mapsDirectionsUrl` to Share → directions link.
+
+## Notes
+
+- Images are currently Unsplash placeholders (see `TODO: REPLACE WITH REAL PRODUCT IMAGES`). Lazy-loaded via `next/image`.
+- Forms use frontend validation only (success message + WhatsApp handover). Connect backend later if needed.
+- Local Business JSON-LD schema is in `src/components/LocalBusinessSchema.tsx` (placeholders inside).
+- No fake functionality: every button links to a real page, `tel:`, `wa.me`, map URL or working form.
